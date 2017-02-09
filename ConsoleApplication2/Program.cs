@@ -10,8 +10,14 @@ namespace ConsoleApplication2
     {
         static void Main(string[] args)
         {
-            testVariables();
-            testUserInput(); 
+           // testVariables();
+          //  testUserInput();
+
+            Person p1, p2;
+            p1 = new Person("foo", 10, 100.0);
+            p2 = new Person("bar", 20, 200.0);
+            p1.PrintPrrops();
+            p2.PrintPrrops(); 
         }
 
 
