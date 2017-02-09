@@ -10,16 +10,42 @@ namespace ConsoleApplication2
     {
         static void Main(string[] args)
         {
-           // testVariables();
-          //  testUserInput();
+            // testVariables();
+            //  testUserInput();
 
+            //   TestPerson();
+            TestComplexNumber(); 
+        }
+
+
+
+        private static void TestComplexNumber()
+        {
+            ComplexNumber c1 = new ComplexNumber(10, 20);
+            Console.WriteLine(c1.ToString());
+
+            ComplexNumber c2 = new ComplexNumber(20, 30);
+
+            ComplexNumber cAdd = c1.Add(c2);
+            ComplexNumber cSubtract = c1.Subtract(c2);
+            ComplexNumber cMultiply = c1.Multiply(c2);
+            ComplexNumber cDivide = c1.Divide(c2);
+            Console.WriteLine("cAdd = {0}", cAdd.ToString());
+            Console.WriteLine("cSubtract = {0}", cSubtract.ToString());
+            Console.WriteLine("cMultiply = {0}", cMultiply.ToString());
+            Console.WriteLine("cDivide = {0}", cDivide.ToString()); 
+        }
+
+        private static void TestPerson()
+        {
             Person p1, p2;
             p1 = new Person("foo", 10, 100.0);
             p2 = new Person("bar", 20, 200.0);
             p1.PrintPrrops();
-            p2.PrintPrrops(); 
+            p2.PrintPrrops();
         }
 
+      
 
         private static void testUserInput()
         {
