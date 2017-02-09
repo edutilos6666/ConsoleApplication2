@@ -14,9 +14,155 @@ namespace ConsoleApplication2
             //  testUserInput();
 
             //   TestPerson();
-            TestComplexNumber(); 
+            //TestComplexNumber(); 
+            //EvenOrOdd(); 
+            //SwapNumbers(); 
+            // SumOfDigits(); 
+            //ReverseNumber(); 
+            // BinaryTriangle(); 
+            //TestNumberSystemConverter(); 
+            Count1s(); 
         }
 
+
+        private static void Count1s()
+        {
+            int n;
+            Console.WriteLine("insert integer: ");
+            n = Convert.ToInt32(Console.ReadLine());
+            String str = n.ToString();
+            int i = 0; 
+            foreach(var ch in str)
+            {
+                if (ch == '1') ++i; 
+            }
+
+            Console.WriteLine("number of 1s in {0} = {1}", n, i); 
+        }
+
+        private static void TestNumberSystemConverter()
+        {
+            String input = "123456";
+            String output = NumberSystemConverter.DecimalToBinary(input);
+            Console.WriteLine("dec: {0} =>  bin: {1}", input, output);
+            String input2 = output;
+            output = NumberSystemConverter.BinaryToDecimal(input2);
+            Console.WriteLine("bin: {0} => dec: {1}", input2, output); 
+           // input = "123456";
+            output = NumberSystemConverter.DecimalToOctal(input); 
+            Console.WriteLine("dec: {0} => octal: {1} ", input, output);
+            input2 = output;
+            output = NumberSystemConverter.OctalToDecimal(input2);
+            Console.WriteLine("octal: {0} => dec: {1}", input2, output); 
+
+            output = NumberSystemConverter.DecimalToHex(input);
+            Console.WriteLine("dec: {0} => hex: {1}", input, output);
+            input2 = output;
+            output = NumberSystemConverter.HexToDecimal(input2);
+            Console.WriteLine("hex: {0} => dec: {1}", input2, output);
+
+            //binary to hex 
+            input = "123456";
+            input = NumberSystemConverter.DecimalToBinary(input);
+            output = NumberSystemConverter.BinaryToHex(input);
+            Console.WriteLine("bin: {0} => hex: {1}", input, output);
+            //hex to binary 
+            input = output;
+            output = NumberSystemConverter.HexToBinary(input);
+            Console.WriteLine("hex: {0} => bin: {1}", input, output); 
+        }
+
+        private static void BinaryTriangle()
+        {
+            int rows = 0;
+            Console.WriteLine("Enter rows: ");
+            rows = Convert.ToInt32(Console.ReadLine());
+            StringBuilder builder = new StringBuilder();
+            builder.Append('1');
+            Console.WriteLine(builder.ToString());
+            for (int i=1; i< rows; ++i)
+            {
+                char[] arr = builder.ToString().ToCharArray(); 
+                if(arr[arr.Length-1] == '0')
+                {
+                    builder.Append('1'); 
+                } else
+                {
+                    builder.Append('0'); 
+                }
+                Console.WriteLine(builder.ToString());
+            }
+        }
+
+
+        private static void ReverseNumber()
+        {
+            int n;
+            Console.WriteLine("Insert your integer number: ");
+            n = Convert.ToInt32(Console.ReadLine());
+            StringBuilder builder = new StringBuilder();
+            int rest = 0; 
+            while(n > 0 )
+            {
+                rest = n % 10;
+                n /= 10;
+                builder.Append(rest); 
+                
+            }
+
+            Console.WriteLine("Reversed Number = {0}", builder.ToString());
+
+
+            double n2;
+            Console.WriteLine("Insert your double number: ");
+            n2 = Convert.ToDouble(Console.ReadLine());
+            Console.WriteLine("n2 = {0}", n2.ToString()); 
+            IEnumerable<char> str = n2.ToString().Reverse();
+            StringBuilder builder2 = new StringBuilder();
+            foreach (var ch in str)
+                builder2.Append(ch); 
+            Console.WriteLine("Reversed n2 = {0}", builder2.ToString()); 
+        }
+        private static void SumOfDigits()
+        {
+            int n;
+            Console.WriteLine("Insert your integer number: ");
+            n = Convert.ToInt32(Console.ReadLine());
+            int sum = 0;
+            int rest = 0; 
+            while(n > 0 )
+            {
+                rest = n % 10;
+                sum += rest;
+                n = n / 10; 
+            }
+
+            Console.WriteLine("Sum of digits = {0}", sum); 
+        }
+
+        private static void SwapNumbers()
+        {
+            double n1 , n2;
+            Console.WriteLine("first number: ");
+            n1 = Convert.ToDouble(Console.ReadLine());
+            Console.WriteLine("second number: ");
+            n2 = Convert.ToDouble(Console.ReadLine());
+            Console.WriteLine("Before swap: n1 = {0}, n2 = {1}", n1, n2);
+            double temp = n1;
+            n1 = n2;
+            n2 = temp;
+            Console.WriteLine("After swap: n1 = {0}, n2 = {1}", n1, n2); 
+        }
+
+        private static void EvenOrOdd()
+        {
+            double number;
+            Console.WriteLine("Enter your number: ");
+            number = Convert.ToDouble(Console.ReadLine());
+            int rest = Convert.ToInt32(number % 2);
+            if (rest == 0) Console.WriteLine("Number is even.");
+            else if (rest == 1) Console.WriteLine("Number is odd."); 
+        }
 
 
         private static void TestComplexNumber()
