@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
+using System.IO;
+using System.Collections; 
 
 namespace ConsoleApplication2
 {
@@ -21,9 +24,285 @@ namespace ConsoleApplication2
             //ReverseNumber(); 
             // BinaryTriangle(); 
             //TestNumberSystemConverter(); 
-            Count1s(); 
+            //Count1s(); 
+            //FrequencyThe(); 
+            //SwapNumbersXOR(); 
+            // PrintDiamond(); 
+            //PrintPrimes(); 
+            // IsPositive(); 
+            // MagnitudeOfInt(); 
+            // ListStatistics(); 
+            // NumberTriangle(); 
+            FindPerson();
         }
 
+
+
+
+        private static void FindPerson()
+        {
+            List<Hashtable> people = new List<Hashtable>();
+
+            String fileName = "people.txt"; 
+            StreamReader reader = File.OpenText(fileName);
+            String line = reader.ReadLine();
+            String nameEl = "", ageEl = "", wageEl = ""; 
+            while (line != null)
+            {
+                //Console.WriteLine(line);
+                String[] sep1 = Regex.Split(line, ",");
+                nameEl = sep1[0];
+                ageEl = sep1[1];
+                wageEl = sep1[2];
+                Hashtable temp = new Hashtable();
+                String[] sep2 = Regex.Split(nameEl, "="); 
+                temp[sep2[0]] = sep2[1];
+                sep2 = Regex.Split(ageEl, "=");
+                temp[sep2[0]] = sep2[1];
+                sep2 = Regex.Split(wageEl, "=");
+                temp[sep2[0]] = sep2[1];
+                people.Add(temp); 
+                line = reader.ReadLine(); 
+            }
+            reader.Close(); 
+
+            /*
+            foreach(var person in people)
+            {
+                Console.WriteLine("{0}, {1}, {2}", person["name"], person["age"], person["wage"]); 
+            }
+            */
+
+            for(;;)
+            {
+                Console.WriteLine("enter person name for search(end):  ");
+                String input = Console.ReadLine();
+                if (input.Equals("end", StringComparison.CurrentCultureIgnoreCase)) break;
+                int flag = 0; 
+                foreach(var person in people)
+                {
+                    //Console.WriteLine(person["name"]); 
+                    if(person["name"].Equals(input))
+                    {
+                        Console.WriteLine("{0}, {1}, {2}", person["name"], person["age"], person["wage"]);
+                        flag = 1; 
+                        break; 
+                    }
+                }
+
+                if (flag == 0)
+                {
+                    Console.WriteLine("no entry found with this name");
+                }
+
+            }
+        }
+        private static void NumberTriangle()
+        {
+            int rows;
+            Console.WriteLine("enter # of rows: ");
+            rows = Convert.ToInt32(Console.ReadLine());
+            List<List<int>> mainList = new List<List<int>>();
+            List<int> list0 = new List<int>();
+            list0.Add(1);
+            List<int> list1 = new List<int>();
+            list1.Add(1); list1.Add(1);
+            mainList.Add(list0);
+            mainList.Add(list1); 
+            for(int i=2; i <= rows; ++i)
+            {
+                List<int> lastList = mainList.ElementAt(i - 1);
+                List<int> newList = new List<int>();
+                newList.Add(1); 
+                for(int j=0; j< lastList.Count -1; ++j)
+                {
+                    int el0 = lastList.ElementAt(j);
+                    int el1 = lastList.ElementAt(j + 1);
+                    newList.Add(el0 + el1); 
+                }
+                newList.Add(1); 
+                mainList.Add(newList); 
+            }
+
+
+            /*
+            foreach (var l in mainList)
+            {
+                foreach(var el in l)
+                {
+                    Console.Write("{0} ", el); 
+                }
+                Console.WriteLine(); 
+            }
+
+    */ 
+
+              for(int i = 0; i<= rows; ++i)
+            {
+                int numberSpaces = rows - i + 1;
+                for (int j = 0; j < numberSpaces; ++j)
+                    Console.Write(" ");
+                var l = mainList.ElementAt(i); 
+                foreach(var el in l)
+                {
+                    Console.Write("{0} ", el); 
+                }
+                Console.WriteLine(); 
+            }
+        }
+
+
+        private static void ListStatistics()
+        {
+            List<int> list = new List<int>();
+            Random rand = new Random();
+            int c = 10; 
+            while(c>0)
+            {
+                list.Add(rand.Next(1, 100));
+                --c; 
+            }
+
+            int min = list.ElementAt(0);
+            int max = list.ElementAt(0);
+            int sum = 0;
+            double avg = 0; 
+            foreach(var el in list)
+            {
+                if (el < min) min = el; 
+            }
+
+            foreach(var el in list)
+            {
+                if (el > max) max = el; 
+            }
+
+            foreach(var el in list)
+            {
+                sum += el; 
+            }
+            avg = (double)sum / list.Count;
+
+            Console.WriteLine("<<list>>");
+            foreach (var el in list) Console.Write("{0} ; ", el);
+            Console.WriteLine(); 
+            Console.WriteLine("min = {0}, max = {1}, sum = {2} , avg = {3}", min, max, sum, avg); 
+        }
+
+        private static void MagnitudeOfInt()
+        {
+            int n;
+            Console.WriteLine("your number: ");
+            n = Convert.ToInt32(Console.ReadLine());
+            int temp = n; 
+            int i = 0; 
+            while (temp > 0 )
+            {
+                ++i;
+                temp /= 10; 
+            }
+            Console.WriteLine("Magnitude of {0} = {1}", n, i); 
+        }
+
+        private static void IsPositive()
+        {
+            int n;
+            Console.WriteLine("your number: ");
+            n = Convert.ToInt32(Console.ReadLine());
+            if (n > 0)
+                Console.WriteLine("{0} is positive", n);
+            else
+                Console.WriteLine("{0} is negative", n);
+        }
+        private static void PrintPrimes()
+        {
+            Console.WriteLine("13 = {0}", IsPrime(13));
+            Console.WriteLine("127 = {0}", IsPrime(127));
+            Console.WriteLine("125 = {0}", IsPrime(125));
+
+
+            int upperBound = 100; 
+            for(int i=2; i<= 100; ++i)
+            {
+                if (IsPrime(i)) Console.Write("{0} ; ", i); 
+            }
+            Console.WriteLine(); 
+        }
+        private static bool IsPrime(int number)
+        {
+            int square = (int)Math.Sqrt(number);
+            //Console.WriteLine("Square = {0}", square); 
+            for(int i=2; i<= square; ++i)
+            {
+                if (number % i == 0) return false; 
+            }
+            return true ; 
+        }
+
+        private static void PrintDiamond()
+        {
+            int rows;
+            Console.WriteLine("Enter # of rows: ");
+            rows = Convert.ToInt32(Console.ReadLine()); 
+            for(int i=0; i< rows; ++i)
+            {
+                int totalRow = 2 * i + 1;
+                int totalSpace = (2 * rows - totalRow) / 2;
+                for (int j = 0; j < totalSpace; ++j)
+                    Console.Write(" ");
+                for (int j = 0; j < totalRow; ++j)
+                    Console.Write("*");
+                Console.WriteLine(); 
+            }
+
+            for(int i= rows -2; i >= 0; --i)
+            {
+                int totalRow = 2 * i + 1;
+                int totalSpace = (2 * rows - totalRow) / 2;
+                for (int j = 0; j < totalSpace; ++j)
+                    Console.Write(" ");
+                for (int j = 0; j < totalRow; ++j)
+                    Console.Write("*");
+                Console.WriteLine();
+            }
+        }
+
+        private static void SwapNumbersXOR()
+        {
+            int n1, n2;
+            Console.WriteLine("first integer: ");
+            n1 = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("second integer: ");
+            n2 = Convert.ToInt32(Console.ReadLine());
+            int temp = n1 ^ n2;
+            n1 = temp ^ n1;
+            n2 = temp ^ n2;
+            Console.WriteLine("n1 = {0}, n2 = {1}", n1, n2); 
+        }
+        private static void FrequencyThe()
+        {
+            String sentence1 = "foo the bar the the the";
+            String sentence2 = "bim the the bim";
+
+           
+            String [] arr1 =  Regex.Split(sentence1, @"\s+");
+            int counter1 = 0, counter2 = 0; 
+            foreach(String str in arr1)
+            {
+                if (str.Equals("the", StringComparison.CurrentCultureIgnoreCase))
+                    counter1++; 
+            }
+
+            String[] arr2 = Regex.Split(sentence2, @"\s+"); 
+            foreach(String str in arr2)
+            {
+                if (str.Equals("the", StringComparison.CurrentCultureIgnoreCase))
+                    ++counter2; 
+            }
+
+
+            Console.WriteLine("Counter1 = {0}, Counter2 = {1}", counter1, counter2); 
+        }
 
         private static void Count1s()
         {
