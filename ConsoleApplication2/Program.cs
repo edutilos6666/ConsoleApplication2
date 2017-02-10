@@ -33,11 +33,17 @@ namespace ConsoleApplication2
             // MagnitudeOfInt(); 
             // ListStatistics(); 
             // NumberTriangle(); 
-            FindPerson();
+            //FindPerson();
+            TestLinq(); 
         }
 
 
 
+        private static void TestLinq()
+        {
+            LinqExample ex = new LinqExample();
+            ex.Example2(); 
+        }
 
         private static void FindPerson()
         {
