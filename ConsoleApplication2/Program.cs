@@ -39,10 +39,184 @@ namespace ConsoleApplication2
             //TestBookStruct(); 
             //TestShape(); 
             // TestSimpleInterface(); 
-            TestDelegateExample(); 
+            //TestDelegateExample(); 
+            // ReverseArray(); 
+            // SumOfOddEven(); 
+            // FindMinAndMaxTemp(); 
+            // LastSamplesOfN(); 
+            // NumberOfOccurences(); 
+            // PrintRectangle(); 
+            // ReverseStmt(); 
+            //PolarToCartesian(); 
+            CartesianToPolar(); 
+        }
+         
+
+
+     private static void CartesianToPolar()
+        {
+            double x = 3, y = 5;
+            double r = Math.Sqrt(Math.Pow(y, 2) + Math.Pow(x, 2));
+            double theta = Math.Atan(x / y);
+            Console.WriteLine("(r, theta ) = ({0},{1})", r, theta); 
+        }
+     private static void PolarToCartesian()
+        {
+            double r = 3;
+            double theta = 5;
+            double degree = 180 / Math.PI;  
+            double x = r * Math.Cos(degree);
+            double y = r * Math.Sin(degree);
+
+            Console.WriteLine("x = {0}, y = {1}", x, y); 
+        }
+
+       private static void ReverseStmt()
+        {
+            String line = "foo bar bim pako";
+            String[] splitted = Regex.Split(line, "\\s+");
+            List<string> list = new List<string>(); 
+            for(int i = splitted.Length -1; i >= 0; --i)
+            {
+                list.Add(splitted[i]); 
+            }
+
+            String res = String.Join(" ", list);
+            Console.WriteLine(res); 
+        }
+
+       private static void PrintRectangle()
+        {
+            int w = 10, h = 5; 
+            for(int i=0; i< w; ++i)
+            {
+                Console.Write("*"); 
+            }
+            Console.WriteLine();
+            h = h - 2; 
+            for(int i=0; i< h; ++i)
+            {
+                Console.Write("*");
+                for (int j = 0; j < w - 2; ++j) Console.Write(" ");
+                Console.WriteLine("*"); 
+            }
+            for (int i = 0; i < w; ++i)
+                Console.Write("*");
+            Console.WriteLine(); 
+        }
+
+        private static void NumberOfOccurences()
+        {
+          long input = 123412341234;
+            long temp = input; 
+            int search = 2;
+            int i = 0; 
+            while(input > 0)
+            {
+                int rest = (int)(input % 10); 
+                input /= 10;
+                if (rest == 2) ++i;   
+            }
+
+            Console.WriteLine("Number of occurence of {0} in {1} = {2}", search, temp, i); 
+        }
+        private static void LastSamplesOfN()
+        {
+            int n = 10, m = 4;
+            List<int> list = new List<int>(); 
+           for(int i= 1; i<= m; ++i)
+            {
+                list.Add(n - i); 
+            }
+
+            IEnumerable<int> res = list.Reverse<int>();
+            foreach (var el in res)
+                Console.Write("{0}; ", el);
+            Console.WriteLine(); 
+        }
+
+        private static void FindMinAndMaxTemp()
+        {
+            double avg = 0, min = 0, max = 0;
+            double sum = 0; 
+            Random rand = new Random();
+            List<double> temps = new List<double>(); 
+            for(int i = 0; i < 10; ++i)
+            {
+                temps.Add(rand.NextDouble() * 100); 
+            }
+
+            int size = temps.Count; 
+
+            foreach(double el in temps)
+            {
+                sum += el;
+                if (min > el) min = el;
+                if (max < el) max = el; 
+            }
+
+            avg = sum / size;
+
+            Console.WriteLine("total sum = {0}", sum);
+            Console.WriteLine("avf = {0}", avg);
+            Console.WriteLine("min = {0}", min);
+            Console.WriteLine("max = {0}", max); 
+        }
+
+       private static void SumOfOddEven()
+        {
+            int n = 100;
+
+            int sum = 0, sumOdd = 0, sumEven = 0;
+
+            for(int i=0; i< n; ++i)
+            {
+                sum += i;
+                if (i % 2 == 0)
+                    sumEven += i;
+                if (i % 2 == 1)
+                    sumOdd += i; 
+            }
+
+            Console.WriteLine("Total sum of {0} = {1}", n, sum);
+            Console.WriteLine("Sum of even numbers of {0} = {1}", n, sumEven);
+            Console.WriteLine("Sum of odd numbers of {0} = {1}", n, sumOdd); 
         }
 
 
+        private static void ReverseArray()
+        {
+            int[] arr = new int[10];
+            // int i = 1; 
+            for(int i= 0; i <arr.Length; ++i)
+            {
+                arr[i] = i + 1; 
+            }
+
+
+            int[] secondArr = new int[10]; 
+            for(int i=0; i< arr.Length; ++i)
+            {
+                secondArr[arr.Length - i - 1] = arr[i]; 
+            }
+
+
+            Console.WriteLine("before reverse arr: ");
+            foreach (var el in arr)
+                Console.Write("{0} ; ", el);
+            Console.WriteLine(); 
+
+            //copy 
+            for(int i= 0; i< arr.Length; ++i)
+            {
+                arr[i] = secondArr[i]; 
+            }
+
+            Console.WriteLine("after reverse arr: "); 
+            foreach (var el in arr)
+                Console.Write("{0} ; ", el);
+            Console.WriteLine(); 
+        }
 
         private static void TestDelegateExample()
         {
