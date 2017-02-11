@@ -34,10 +34,106 @@ namespace ConsoleApplication2
             // ListStatistics(); 
             // NumberTriangle(); 
             //FindPerson();
-            TestLinq(); 
+            // TestLinq(); 
+            // TestNumberAdder(); 
+            //TestBookStruct(); 
+            //TestShape(); 
+            // TestSimpleInterface(); 
+            TestDelegateExample(); 
         }
 
 
+
+        private static void TestDelegateExample()
+        {
+            MathDelegate md1, md2, md3, md4;
+            md1 = new MathDelegate(SimpleMath.Add);
+            md2 = new MathDelegate(SimpleMath.Subtract);
+            md3 = new MathDelegate(SimpleMath.Multiply);
+            md4 = new MathDelegate(SimpleMath.Divide);
+
+            Random rand = new Random();
+            int n1 = rand.Next(1, 100),
+                n2 = rand.Next(1, 100);
+
+            int add = md1(n1, n2);
+            int sub = md2(n1, n2);
+            int mult = md3(n1, n2);
+            int div = md4(n1, n2);
+
+            String format = "add = {0}{1}subtract = {2}{1}multiply = {3}{1}divide = {4}";
+            String nl = "\r\n";
+            Console.WriteLine("n1 = {0} , n2 = {1}", n1, n2); 
+            String msg = String.Format(format, add, nl, sub, mult, div);
+            Console.WriteLine(msg);
+        }
+
+
+
+        private static void TestSimpleInterface()
+        {
+            CustomFile f1, f2, f3;
+
+            Random rand = new Random();
+            f1 = new CustomFile("foo.txt", "root", rand.Next(), true, false, false);
+            f2 = new CustomFile("bar.txt", "root", rand.Next(), false, true, false);
+            f3 = new CustomFile("bim.exe", "bin", rand.Next(), false, false, true);
+            f1.PrettyPrint();
+            f2.PrettyPrint();
+            f3.PrettyPrint();
+            f1.AllOnce();
+            f2.AllOnce();
+            f3.AllOnce(); 
+        }
+
+        private static void TestShape()
+        {
+            Shape s1, s2, s3;
+            s1 = new Rectangle(10, 20);
+            s2 = new Triangle(10, 20, 20);
+            s3 = new Circle(20);
+
+            Console.WriteLine("{0} -> {1}", s1.TypeOfShape(), s1.Area());
+            Console.WriteLine("{0} -> {1}", s2.TypeOfShape(), s2.Area());
+            Console.WriteLine("{0} -> {1}", s3.TypeOfShape(), s3.Area()); 
+
+        }
+
+
+        private static void TestBookStruct()
+        {
+            Book b1, b2;
+            DateTime bd1 = new DateTime(1991, 10, 10);
+            DateTime bd2 = new DateTime(1994, 11, 11);
+            b1 = new Book("foo", 10, bd1);
+            b2 = new Book("bar", 20, bd2);
+
+            Console.WriteLine("Printing books: ");
+            Console.WriteLine("{0}", b1.ToString());
+            Console.WriteLine("{0}", b2.ToString());
+
+            Book sum = b1 + b2;
+            Console.WriteLine("sum of books = {0}", sum.ToString()); 
+        }
+      
+
+
+        private static void TestNumberAdder()
+        {
+            double w1 = 10, h1 = 5;
+            double w2 = 30, h2 = 15;
+            NumberAdder adder1, adder2;
+            adder1 = new NumberAdder(w1, h1);
+            adder2 = new NumberAdder(w2, h2);
+            NumberAdder _add = adder1 + adder2;
+            NumberAdder _sub = adder1 - adder2;
+            NumberAdder _mult = adder1 * adder2;
+            NumberAdder _div = adder1 / adder2;
+            Console.WriteLine("sum = {0}", _add.ToString());
+            Console.WriteLine("sub = {0}", _sub.ToString());
+            Console.WriteLine("mult = {0}", _mult.ToString());
+            Console.WriteLine("div = {0}", _div.ToString()); 
+        }
 
         private static void TestLinq()
         {
