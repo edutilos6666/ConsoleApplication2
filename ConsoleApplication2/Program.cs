@@ -48,10 +48,29 @@ namespace ConsoleApplication2
             // PrintRectangle(); 
             // ReverseStmt(); 
             //PolarToCartesian(); 
-            CartesianToPolar(); 
+            //CartesianToPolar(); 
+            LinqAggregate(); 
         }
          
 
+
+    private static void LinqAggregate()
+        {
+            int[] numbers = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+            var sum = numbers.Sum<int>(n => n);
+            var avg = numbers.Average<int>(n => n);
+            var max = numbers.Max<int>(n => n);
+            var min = numbers.Min<int>(n => n);
+            var count = numbers.Count<int>();
+
+            Console.WriteLine("sum,avg,max,min,count = {0}, {1}, {2}, {3}, {4}", sum, avg, max, min, count);
+
+
+            var res = from n in numbers
+                      where n > 1
+                      select n; 
+                  
+        }
 
      private static void CartesianToPolar()
         {
